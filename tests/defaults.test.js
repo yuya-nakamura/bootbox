@@ -136,7 +136,7 @@ describe("bootbox.setDefaults", function() {
     });
   });
 
-  describe("container", function () {
+  describe("container", function() {
     describe("when not explicitly set", function() {
       beforeEach(function() {
         this.dialog = bootbox.dialog({
@@ -180,6 +180,42 @@ describe("bootbox.setDefaults", function() {
 
       it("sets the correct parent element", function() {
         expect(this.dialog.parent().is(this.container)).to.be.true;
+      });
+    });
+  });
+
+  describe("buttonPlace", function() {
+    describe("when explicity set to left", function() {
+      beforeEach(function() {
+        bootbox.setDefaults({
+          buttonPlace: "left"
+        });
+
+        this.dialog = bootbox.confirm("test", function() {
+          return result;
+        });
+      });
+      it("button place left", function() {
+        expect(this.dialog.find(".btn:first").text()).to.equal("OK");
+        expect(this.dialog.find(".btn:last").text()).to.equal("Cancel");
+        expect(this.dialog.find(".btn:first").hasClass("btn-primary")).to.be["true"];
+        expect(this.dialog.find(".btn:last").hasClass("btn-default")).to.be["true"];
+      });
+    });
+    describe("when not explicity set", function() {
+      beforeEach(function() {
+        bootbox.setDefaults({
+          buttonPlace: "right"
+        });
+        this.dialog = bootbox.confirm("test", function() {
+          return result;
+        });
+      });
+      it("defaults to the button place right", function() {
+        expect(this.dialog.find(".btn:first").text()).to.equal("Cancel");
+        expect(this.dialog.find(".btn:last").text()).to.equal("OK");
+        expect(this.dialog.find(".btn:first").hasClass("btn-default")).to.be["true"];
+        expect(this.dialog.find(".btn:last").hasClass("btn-primary")).to.be["true"];
       });
     });
   });

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>bootbox sample</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="./bootbox.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3">
+                <button type="button" class="btn btn-primary" id="normal">
+                    normal
+                </button>
+            </div>
+            <div class="col-xs-3">
+                <button type="button" class="btn btn-default" id="left">
+                    left
+                </button>
+            </div>
+            <div class="col-xs-3">
+                <button type="button" class="btn btn-warning" id="right">
+                    right
+                </button>
+            </div>
+            <div class="col-xs-3">
+                <button type="button" class="btn btn-denger" id="focus">
+                    focus
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <button type="button" class="btn btn-primary" id="only">
+                    only
+                </button>
+            </div>
+            <div class="col-xs-3">
+                <button type="button" class="btn btn-default" id="notOnly">
+                    notOnly
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+$(function() {
+    $("#normal").on("click", function() {
+        bootbox.alert("normal");
+    });
+
+    $("#left").on("click", function() {
+        bootbox.setDefaults({
+            buttonPlace: "left"
+        });
+        bootbox.confirm("left", function(result) {
+            console.log(result);
+        });
+    });
+
+    $("#right").on("click", function() {
+        bootbox.setDefaults({
+            buttonPlace: "right"
+        });
+        bootbox.confirm("right", function(result) {
+            console.log(result);
+        });
+    });
+
+    $("#focus").on("click", function() {
+        bootbox.setDefaults({
+            focus: false
+        });
+        bootbox.alert("focus");
+    });
+
+    $("#only").on("click", function() {
+        bootbox.setDefaults({
+            only: true
+        });
+        bootbox.alert("only");
+        bootbox.alert("only --- 1000");
+    });
+
+    $("#notOnly").on("click", function() {
+        bootbox.setDefaults({
+            only: false
+        });
+
+        bootbox.alert("notOnly");
+        bootbox.alert("notOnly ----- 10000");
+    });
+});
+</script>
+
+</html>
