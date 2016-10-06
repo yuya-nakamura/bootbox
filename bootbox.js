@@ -97,6 +97,10 @@
     return locale ? locale[key] : locales.en[key];
   }
 
+  function isNullOrUndefined(value) {
+    return typeof value === 'undefined' || value === null;
+  }
+
   function processCallback(e, dialog, callback) {
     e.stopPropagation();
     e.preventDefault();
@@ -150,7 +154,7 @@
       throw new Error("Please supply an object of options");
     }
 
-    if (!options.message) {
+    if (isNullOrUndefined(options.message)) {
       throw new Error("Please specify a message");
     }
 
@@ -977,7 +981,7 @@
 
   exports.addLocale = function(name, values) {
     $.each(["OK", "CANCEL", "CONFIRM"], function(_, v) {
-      if (!values[v]) {
+      if (isNullOrUndefined(values[v])) {
         throw new Error("Please supply a translation for '" + v + "'");
       }
     });

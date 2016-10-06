@@ -88,11 +88,42 @@ describe("bootbox.confirm", function() {
           return expect(this.create).to["throw"](/confirm requires a callback/);
         });
       });
-      return describe("where the second argument is a function", function() {
+      describe("where the second argument is a function", function() {
         beforeEach(function() {
           return this.create = (function(_this) {
             return function() {
               return _this.dialog = bootbox.confirm("Are you sure?", function() {
+                return true;
+              });
+            };
+          })(this);
+        });
+        it("does not throw an error", function() {
+          return expect(this.create).not.to["throw"](Error);
+        });
+        it("creates a dialog object", function() {
+          return expect(this.dialog).to.be.an("object");
+        });
+        it("applies the bootbox-confirm class to the dialog", function() {
+          return expect(this.dialog.hasClass("bootbox-confirm")).to.be["true"];
+        });
+        it("adds the correct button labels", function() {
+          expect(this.dialog.find(".btn:first").text()).to.equal("Cancel");
+          return expect(this.dialog.find(".btn:last").text()).to.equal("OK");
+        });
+        it("adds the correct button classes", function() {
+          expect(this.dialog.find(".btn:first").hasClass("btn-default")).to.be["true"];
+          return expect(this.dialog.find(".btn:last").hasClass("btn-primary")).to.be["true"];
+        });
+        return it("shows the dialog", function() {
+          return expect(this.dialog.is(":visible")).to.be["true"];
+        });
+      });
+      return describe("message is empty string where the second argument is a function", function() {
+        beforeEach(function() {
+          return this.create = (function(_this) {
+            return function() {
+              return _this.dialog = bootbox.confirm("", function() {
                 return true;
               });
             };

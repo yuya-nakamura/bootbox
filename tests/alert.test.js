@@ -30,6 +30,17 @@ describe("bootbox.alert", function() {
         expect(this.create).to.throw(/argument length/);
       });
     });
+    describe("with null arguments", function() {
+      beforeEach(function() {
+        this.create = function() {
+          bootbox.alert(null);
+        };
+      });
+
+      it("throws an error regarding argument length", function() {
+        expect(this.create).to.throw(/Please specify a message/);
+      });
+    });
 
     describe("with one argument", function() {
 
@@ -44,6 +55,43 @@ describe("bootbox.alert", function() {
 
         it("shows the expected body copy", function() {
           expect(this.text(".bootbox-body")).to.equal("Hello world!");
+        });
+
+        it("shows an OK button", function() {
+          expect(this.text(".modal-footer button:first")).to.equal("OK");
+        });
+
+        it("applies the primary class to the button", function() {
+          expect(this.find(".modal-footer button:first").hasClass("btn-primary")).to.be.true;
+        });
+
+        it("shows a close button inside the body", function() {
+          expect(this.text(".modal-body button")).to.equal("×");
+        });
+
+        it("applies the close class to the close button", function() {
+          expect(this.find(".modal-body button").hasClass("close")).to.be.true;
+        });
+
+        it("applies the correct aria-hidden attribute to the close button", function() {
+          expect(this.find("button.close").attr("aria-hidden")).to.equal("true");
+        });
+
+        it("applies the correct class to the body", function() {
+          expect($("body").hasClass("modal-open")).to.be.true;
+        });
+      });
+      describe("where the argument is a empty string", function() {
+        beforeEach(function() {
+          this.dialog = bootbox.alert("");
+        });
+
+        it("applies the bootbox-alert class to the dialog", function() {
+          expect(this.dialog.hasClass("bootbox-alert")).to.be.true;
+        });
+
+        it("shows the expected body copy", function() {
+          expect(this.text(".bootbox-body")).to.equal("");
         });
 
         it("shows an OK button", function() {
